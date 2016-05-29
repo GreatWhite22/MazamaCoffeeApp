@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">MazamaCoffee</string>
+    <string name="title_activity_drink">DrinkActivity</string>
+</resources>
