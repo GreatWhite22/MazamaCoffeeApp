@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView android:id="@+id/payment_form_title"
+    <TextView android:id="@+id/transaction_form_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Add Payment"
@@ -11,10 +11,10 @@
         android:layout_alignParentTop="true"
         />
 
-    <fragment android:id="@+id/payment_form"
-        android:layout_below="@id/payment_form_title"
+    <fragment android:id="@+id/transaction_form"
+        android:layout_below="@id/transaction_form_title"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         class="com.mazamacoffee.www.mazamacoffee.fragment.TransactionFormFragment"/>
-    
+
 </RelativeLayout>
