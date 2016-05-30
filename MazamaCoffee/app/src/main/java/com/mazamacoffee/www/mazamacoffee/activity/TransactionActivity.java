@@ -1,14 +1,19 @@
-package com.mazamacoffee.www.mazamacoffee;
+package com.mazamacoffee.www.mazamacoffee.activity;
 
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
+import com.mazamacoffee.www.mazamacoffee.R;
 import com.stripe.android.*;
 import com.stripe.android.model.Card;
+import com.stripe.android.Stripe.*;
+import com.stripe.android.model.Token;
+import com.stripe.exception.AuthenticationException;
 
 public class TransactionActivity extends AppCompatActivity {
     private EditText cardNumber;
@@ -36,7 +41,7 @@ public class TransactionActivity extends AppCompatActivity {
         if(!card.validateCard()){
             //throw exception
         }
-        Stripe stripe = new Stripe("pk_test_6pRNASCoBOKtIshFeQd4XMUh");
+        Stripe stripe = new Stripe("pk_test_irEAw0mlXyAIwo6XFQRlBpOi");
         stripe.createToken(
                 card,
                 new TokenCallback() {
@@ -51,6 +56,6 @@ public class TransactionActivity extends AppCompatActivity {
                         ).show();
                     }
                 }
-        )
+        );
     }
 }
