@@ -20,18 +20,28 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    <Spinner
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:entries="@array/month_array"
-        android:id="@+id/ExpMonth" />
-    <Spinner
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:entries="@array/year_array"
-        android:id="@+id/ExpYear" />
+        <Spinner
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:entries="@array/month_array"
+            android:id="@+id/expMonth" />
+        <Spinner
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:entries="@array/year_array"
+            android:id="@+id/expYear" />
+        <EditText
+            android:layout_width="0dp"
+            android:layout_weight="0.7"
+            android:layout_height="wrap_content"
+            android:hint="CVV/CVC"
+            android:id="@+id/cvv"
+            android:inputType="numberDecimal"/>
     </LinearLayout>
+    <Button
+        style="@style/Submit" android:id="@+id/submit"
+        />
 
 </LinearLayout>

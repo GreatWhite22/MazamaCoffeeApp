@@ -5,7 +5,7 @@ package com.mazamacoffee.www.mazamacoffee;
  */
 public interface TransactionForm {
     public String getCardNumber();
-    public String getCVV();
+    public String getCvv();
     public Integer getExpMonth();
     public Integer getExpYear();
 }

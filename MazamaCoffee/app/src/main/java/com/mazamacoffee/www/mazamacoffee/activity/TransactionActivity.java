@@ -1,6 +1,7 @@
 package com.mazamacoffee.www.mazamacoffee.activity;
 
 
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,13 +10,14 @@ import android.widget.Toast;
 
 
 import com.mazamacoffee.www.mazamacoffee.R;
+import com.mazamacoffee.www.mazamacoffee.TransactionForm;
 import com.stripe.android.*;
 import com.stripe.android.model.Card;
 import com.stripe.android.Stripe.*;
 import com.stripe.android.model.Token;
 import com.stripe.exception.AuthenticationException;
 
-public class TransactionActivity extends AppCompatActivity {
+public class TransactionActivity extends FragmentActivity {
     private EditText cardNumber;
     private EditText month;
     private EditText year;
@@ -28,16 +30,13 @@ public class TransactionActivity extends AppCompatActivity {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
     }
 
-    private void transactionSubmit(View v) {
-        cardNumber = (EditText) findViewById(R.id.cardNumber);
-        month = (EditText) findViewById(R.id.month);
-        year = (EditText) findViewById(R.id.year);
-        cvv = (EditText) findViewById(R.id.cvv);
+    public void transactionSubmit(TransactionForm form) {
 
-        Card card = new Card(cardNumber.getText().toString(),
-                Integer.parseInt(month.getText().toString()),
-                Integer.parseInt(year.getText().toString()),
-                cvv.getText().toString());
+        Card card = new Card(
+                form.getCardNumber(),
+                form.getExpMonth(),
+                form.getExpYear(),
+                form.getCvv());
         if(!card.validateCard()){
             //throw exception
         }
