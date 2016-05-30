@@ -1,4 +1,4 @@
-package com.mazamacoffee.www.mazamacoffee.fragment;
+package com.mazamacoffee.www.mazamacoffee;
 
 /**
  * Created by Connor Lewis on 5/30/2016.
