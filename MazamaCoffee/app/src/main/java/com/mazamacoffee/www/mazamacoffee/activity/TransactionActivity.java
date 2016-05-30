@@ -37,8 +37,9 @@ public class TransactionActivity extends FragmentActivity {
                 form.getExpMonth(),
                 form.getExpYear(),
                 form.getCvv());
-        if(!card.validateCard()){
-            //throw exception
+        Boolean validate = card.validateCard();
+        if(validate){
+
         }
         /*Stripe stripe = new Stripe("pk_test_irEAw0mlXyAIwo6XFQRlBpOi");
         stripe.createToken(
