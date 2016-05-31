@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Mazama Coffee</string>
     <string name="title_activity_drink">DrinkActivity</string>
+    <string name="progressMessage">Success!;</string>
+    <string name="validationErrors">Validation Errors</string>
+    <string name="endingIn">Card ending in </string>
 </resources>
