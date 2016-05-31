@@ -9,13 +9,11 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".activity.DrinkActivity">
 
-    <Button
+    <fragment
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Coffee"
-        android:id="@+id/button4"
+        android:name="com.mazamacoffee.www.mazamacoffee.fragment.DrinkListFragment"
+        android:id="@+id/fragment"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="121dp"
-        android:onClick="Options" />
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

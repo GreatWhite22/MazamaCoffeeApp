@@ -41,7 +41,7 @@ public class TransactionActivity extends AppCompatActivity {
         if(!card.validateCard()){
             //throw exception
         }
-        Stripe stripe = new Stripe("pk_test_irEAw0mlXyAIwo6XFQRlBpOi");
+/*        Stripe stripe = new Stripe("pk_test_irEAw0mlXyAIwo6XFQRlBpOi");
         stripe.createToken(
                 card,
                 new TokenCallback() {
@@ -56,6 +56,6 @@ public class TransactionActivity extends AppCompatActivity {
                         ).show();
                     }
                 }
-        );
+        );*/
     }
 }
