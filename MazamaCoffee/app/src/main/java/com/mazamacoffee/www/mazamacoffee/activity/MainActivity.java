@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void drinkClicked(View v){
-        Intent intent = new Intent(MainActivity.this, DrinkActivity.class);
+        Intent intent = new Intent(MainActivity.this, ShoppingCartActivity.class);
         startActivity(intent);
     }
 
