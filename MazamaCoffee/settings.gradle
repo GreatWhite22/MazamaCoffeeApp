@@ -1,2 +1,1 @@
-include ':app' , ':shoppingCart'
-project(':shoppingCart').projectDir = new File('libs/shoppingCart')
+include ':app'

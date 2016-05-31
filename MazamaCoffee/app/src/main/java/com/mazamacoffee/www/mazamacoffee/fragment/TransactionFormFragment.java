@@ -4,13 +4,20 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.telephony.PhoneNumberFormattingTextWatcher;
+import android.telephony.PhoneNumberUtils;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 
+import com.devmarvel.creditcardentry.library.CreditCardForm;
 import com.mazamacoffee.www.mazamacoffee.R;
 import com.mazamacoffee.www.mazamacoffee.TransactionForm;
 import com.mazamacoffee.www.mazamacoffee.activity.TransactionActivity;
@@ -21,6 +28,7 @@ public class TransactionFormFragment extends Fragment implements TransactionForm
     EditText cvv;
     Spinner expMonthSpinner;
     Spinner expYearSpinner;
+    EditText number;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -33,6 +41,25 @@ public class TransactionFormFragment extends Fragment implements TransactionForm
                 submitForm(view);
             }
         });
+
+        number = (EditText) view.findViewById(R.id.phoneNumber);
+        number.addTextChangedListener(new PhoneNumberFormattingTextWatcher(){
+
+           @Override
+           public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+           }
+
+           @Override
+           public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+           }
+
+           @Override
+           public void afterTextChanged(Editable s) {
+
+           }
+       });
 
         this.cardNumber = (EditText) view.findViewById(R.id.cardNumber);
         this.cvv = (EditText) view.findViewById(R.id.cvv);
@@ -72,6 +99,14 @@ public class TransactionFormFragment extends Fragment implements TransactionForm
         } catch (NumberFormatException e) {
             return 0;
         }
+    }
+
+    private String formatNumber(){
+        String formattedNumber = this.toString();
+        if(formattedNumber.length() < 10){
+            return formattedNumber;
+        }
+        return formattedNumber;
     }
 }
 

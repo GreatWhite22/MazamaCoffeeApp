@@ -1,21 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:gravity="center_horizontal"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:paddingLeft="8dp"
-    android:paddingRight="8dp">
+    android:paddingRight="8dp"
+    android:id="@+id/layer"
+    >
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Name"
         android:id="@+id/name" android:nextFocusDown="@+id/cardNumber" />
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Credit Card Number"
-        android:id="@+id/cardNumber" android:nextFocusDown="@+id/ExpMonth" />
+        android:hint="Phone Number"
+        android:id="@+id/phoneNumber"
+        android:inputType="phone"
+        android:numeric="integer"
+        android:maxLength="14" />
+
+    <com.devmarvel.creditcardentry.library.CreditCardForm
+        android:id="@+id/credit_card_form"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:include_helper="false"
+        app:include_zip="true"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
