@@ -47,7 +47,6 @@ public class TransactionFormFragment extends Fragment implements TransactionForm
 
            @Override
            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
            }
 
            @Override
@@ -57,7 +56,14 @@ public class TransactionFormFragment extends Fragment implements TransactionForm
 
            @Override
            public void afterTextChanged(Editable s) {
-
+                if(s.length() == 3){
+                    s.insert(0,"(");
+                    s.append(")");
+                    s.append(" ");
+                }
+               if(s.length() == 9){
+                   s.append("-");
+               }
            }
        });
 
