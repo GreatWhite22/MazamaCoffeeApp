@@ -1,118 +1,95 @@
 package com.mazamacoffee.www.mazamacoffee.fragment;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.telephony.PhoneNumberFormattingTextWatcher;
-import android.telephony.PhoneNumberUtils;
 import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 
+import com.devmarvel.creditcardentry.library.CreditCard;
 import com.devmarvel.creditcardentry.library.CreditCardForm;
 import com.mazamacoffee.www.mazamacoffee.R;
-import com.mazamacoffee.www.mazamacoffee.TransactionForm;
 import com.mazamacoffee.www.mazamacoffee.activity.TransactionActivity;
 
-public class TransactionFormFragment extends Fragment implements TransactionForm {
+public class TransactionFormFragment extends Fragment {
     Button submitButton;
-    EditText cardNumber;
-    EditText cvv;
-    Spinner expMonthSpinner;
-    Spinner expYearSpinner;
     EditText number;
+    private CreditCardForm form;
+    private LinearLayout linearLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_transaction_form, container, false);
-
-        this.submitButton = (Button) view.findViewById(R.id.submit);
+        linearLayout = (LinearLayout) getView().findViewById(R.id.layer);
+        form = new CreditCardForm(this.getActivity());
+        linearLayout.addView(form);
+        submitButton = (Button) getView().findViewById(R.id.submit);
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (form.isCreditCardValid()) {
+                    CreditCard card = form.getCreditCard();
+                    submitForm(card);
+                } else {
+                    //Alert card invalid
+                }
+            }
+        });
+       /* this.submitButton = (Button) view.findViewById(R.id.submit);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 submitForm(view);
             }
-        });
+        });*/
 
         number = (EditText) view.findViewById(R.id.phoneNumber);
-        number.addTextChangedListener(new PhoneNumberFormattingTextWatcher(){
+        number.addTextChangedListener(new PhoneNumberFormattingTextWatcher() {
+            private boolean numberAdded = true;
+            private boolean deletion = false;
+            private int cursor;
 
-           @Override
-           public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-           }
-
-           @Override
-           public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-           }
-
-           @Override
-           public void afterTextChanged(Editable s) {
-                if(s.length() == 3){
-                    s.insert(0,"(");
-                    s.append(")");
-                    s.append(" ");
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                cursor = s.length() - number.getSelectionStart();
+                if (count > after) {
+                    deletion = true;
+                } else {
+                    deletion = false;
                 }
-               if(s.length() == 9){
-                   s.append("-");
-               }
-           }
-       });
+            }
 
-        this.cardNumber = (EditText) view.findViewById(R.id.cardNumber);
-        this.cvv = (EditText) view.findViewById(R.id.cvv);
-        this.expMonthSpinner = (Spinner) view.findViewById(R.id.expMonth);
-        this.expYearSpinner = (Spinner) view.findViewById(R.id.expYear);
-
+            @Override
+            public void afterTextChanged(Editable s) {
+                String phoneNumber = s.toString();
+                phoneNumber = phoneNumber.replaceAll("[^\\d]", "");
+                if (numberAdded) {
+                    if (phoneNumber.length() >= 6 && !deletion) {
+                        numberAdded = false;
+                        phoneNumber = "(" + phoneNumber.substring(0, 3) + ") " + phoneNumber.substring(3, 6) + "-" + phoneNumber.substring(6);
+                        number.setText(phoneNumber);
+                        number.setSelection(number.getText().length() - cursor);
+                    } else if (phoneNumber.length() >= 3 && !deletion) {
+                        numberAdded = false;
+                        phoneNumber = "(" + phoneNumber.substring(0, 3) + ") " + phoneNumber.substring(3);
+                        number.setText(phoneNumber);
+                        number.setSelection(number.getText().length() - cursor);
+                    }
+                } else {
+                    numberAdded = true;
+                }
+            }
+        });
         return view;
     }
 
-    @Override
-    public String getCardNumber() {
-        return this.cardNumber.getText().toString();
-    }
-
-    @Override
-    public String getCvv() {
-        return this.cvv.getText().toString();
-    }
-
-    @Override
-    public Integer getExpMonth() {
-        return getInteger(this.expMonthSpinner);
-    }
-
-    @Override
-    public Integer getExpYear() {
-        return getInteger(this.expYearSpinner);
-    }
-
-    public void submitForm(View button) {
-        ((TransactionActivity)getActivity()).transactionSubmit(this);
-    }
-
-    private Integer getInteger(Spinner spinner) {
-        try {
-            return Integer.parseInt(spinner.getSelectedItem().toString());
-        } catch (NumberFormatException e) {
-            return 0;
-        }
-    }
-
-    private String formatNumber(){
-        String formattedNumber = this.toString();
-        if(formattedNumber.length() < 10){
-            return formattedNumber;
-        }
-        return formattedNumber;
+    public void submitForm(CreditCard card) {
+        ((TransactionActivity) getActivity()).transactionSubmit(card);
     }
 }
 
